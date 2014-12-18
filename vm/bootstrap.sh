@@ -28,6 +28,16 @@ if [ ! -f /var/log/provision/postgressetup ];
   then
   apt-get install -y postgresql postgresql-client
   touch /var/log/provision/postgressetup
+
+  # Allow remote connections
+  cp /vagrant/data/postgres/*.conf /etc/postgresql/9.3/main
+
+  # Create the dev and test databases
+  sudo -u postgres createdb myappdb
+  sudo -u postgres createdb myappdbtest
+
+  # Restart PostgreSQL server for config changes to take effect
+  /etc/init.d/postgresql restart
 fi
 
 #Configure elasticsearch
