@@ -36,6 +36,10 @@ if [ ! -f /var/log/provision/postgressetup ];
   sudo -u postgres createdb myappdb
   sudo -u postgres createdb myappdbtest
 
+  # Populate the databases
+  sudo -u postgres psql myappdb < /vagrant/data/postgres/world.sql
+  sudo -u postgres psql myappdbtest < /vagrant/data/postgres/world.sql
+
   # Restart PostgreSQL server for config changes to take effect
   /etc/init.d/postgresql restart
 fi
