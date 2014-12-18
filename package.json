@@ -5,29 +5,36 @@
   "author": "Sean McIntyre <smcintyre@oculusinfo.com>",
   "description": "Simple Node.js development server for Databricks UI.",
   "contributors": [
-    {"name": "Sean McIntyre","email": "smcintyre@oculusinfo.com"}
+    {
+      "name": "Sean McIntyre",
+      "email": "smcintyre@oculusinfo.com"
+    }
   ],
-  "main":"app.js",
+  "main": "app.js",
   "dependencies": {
-    "body-parser":"1.8.2",
-    "compression":"1.1.0",
+    "body-parser": "1.8.2",
+    "compression": "1.1.0",
     "express": "4.9.2",
-    "method-override":"2.2.0"
+    "method-override": "2.2.0",
+    "pg": "4.1.1"
   },
   "devDependencies": {
+    "chai": "1.10.0",
     "grunt": "0.4.5",
     "grunt-angular-templates": "^0.5.6",
     "grunt-concurrent": "1.0.0",
     "grunt-contrib-clean": "0.6.0",
     "grunt-contrib-concat": "^0.4.0",
     "grunt-contrib-copy": "0.6.0",
-    "grunt-contrib-less": "0.11.4",
     "grunt-contrib-jshint": "0.10.0",
-    "grunt-contrib-watch" : "0.6.1",
-    "grunt-contrib-uglify" : "^0.5.0",
+    "grunt-contrib-less": "0.11.4",
+    "grunt-contrib-uglify": "^0.5.0",
+    "grunt-contrib-watch": "0.6.1",
     "grunt-env": "0.4.1",
+    "grunt-mocha-test": "0.12.4",
     "grunt-ng-annotate": "^0.4.0",
     "grunt-nodemon": "0.3.0",
-    "jshint-stylish": "0.4.0"
+    "jshint-stylish": "0.4.0",
+    "mocha": "2.0.1"
   }
 }

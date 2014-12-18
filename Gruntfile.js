@@ -121,6 +121,7 @@ module.exports = function(grunt) {
         boss:      true,
         eqnull:    true,
         node:      true,
+        mocha:     true,
         jquery:    true,
         quotmark: 'single',
         camelcase: true,
@@ -142,6 +143,15 @@ module.exports = function(grunt) {
             'angular': false,
             'myapp': true
           }
+        }
+      },
+      backEndDevelopment: {
+        files: {
+          src: [
+            'app.js',
+            'lib/**/*.js',
+            'test/**/*.js'
+          ],
         }
       }
     },
@@ -194,6 +204,10 @@ module.exports = function(grunt) {
         files: ['webclient/index.html'],
         tasks: ['copy:index']
       },
+      serverTests: {
+        files: ['lib/**/*.js', 'test/lib/**/*.js'],
+        tasks: ['mochaTest']
+      },
       bower: {
         files: ['bower.json'],
         tasks: ['bower-install']
@@ -206,7 +220,18 @@ module.exports = function(grunt) {
           logConcurrentOutput: true
         }
       }
+    },
+
+    mochaTest: {
+      test: {
+        options: {
+          reporter: 'spec',
+          clearRequireCache: true
+        },
+        src: ['test/lib/**/*.js']
+      }
     }
+
   });
 
   grunt.loadNpmTasks('grunt-concurrent');
@@ -221,6 +246,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-env');
   grunt.loadNpmTasks('grunt-nodemon');
   grunt.loadNpmTasks('grunt-ng-annotate');
+  grunt.loadNpmTasks('grunt-mocha-test');
 
   //Use the real bower instead of the fragile grunt plugins that wrap it
   grunt.registerTask('bower-install', 'install front-end dependencies using bower', function() {
@@ -234,6 +260,8 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build-js', [
     'jshint:frontEndDevelopment',
+    'jshint:backEndDevelopment',
+    'mochaTest',
     'ngtemplates',
     'concat:appClient',
     'ngAnnotate',
