@@ -252,5 +252,5 @@ module.exports = function(grunt) {
     'copy:index'
   ]);
 
-  grunt.registerTask('default', ['bower-install', 'env:dev', 'build', 'concurrent']);
+  grunt.registerTask('default', ['env:dev', 'build', 'concurrent']);
 };
