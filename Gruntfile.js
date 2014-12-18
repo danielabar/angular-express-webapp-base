@@ -151,8 +151,9 @@ module.exports = function(grunt) {
         NODE_PORT: '9080',
         NODE_DOMAIN: 'localhost',
         APP_PORT: '9080',
-        APP_DOMAIN: 'localhost',
-        TILES_SERVER_BASE: 'http://localhost:8080'
+        APP_DOMAIN: 'localhost'
+        //Add other environment variables here, such as connection parameters
+        //to various databases (redis, elasticsearch, etc.) in the Vagrant dev VM.
       }
     },
     nodemon: {

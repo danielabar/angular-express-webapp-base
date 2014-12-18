@@ -4,3 +4,7 @@ webclient/generated
 node_modules
 npp-debug.log
 lib-cov
+
+.vagrant
+lib-cov
+coverage.html
