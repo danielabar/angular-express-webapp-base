@@ -177,7 +177,8 @@ module.exports = function(grunt) {
         options: {
           ignore: ['node_modules/**'],
           ext: 'js',
-          delay: 1000
+          delay: 1000,
+          watch: ['lib']
         }
       }
     },
