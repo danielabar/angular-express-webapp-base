@@ -274,10 +274,13 @@ module.exports = function(grunt) {
       });
   });
 
+  // This could be enhanced to also run client side tests
+  grunt.registerTask('allTests', ['env:dev', 'mochaTest']);
+
   grunt.registerTask('build-js', [
     'jshint:frontEndDevelopment',
     'jshint:backEndDevelopment',
-    'mochaTest',
+    'allTests',
     'ngtemplates',
     'concat:appClient',
     'ngAnnotate',

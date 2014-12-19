@@ -1,20 +1,42 @@
 <!DOCTYPE html>
 
-<html>
+<html ng-app="myapp">
   <head>
-    <title>My Application</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Angular Express Starter</title>
+    <base href="/">
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css"/>
+  </head>
+
+  <body data-ng-app="myapp">
+
+    <div class="container">
+      <div class="page-header">
+        <h1>Angular Express Starter</h1>
+      </div>
+      <div class="row">
+        <!-- Contents of this div will change as route changes -->
+        <div class="col-sm-12" ui-view></div>
+      </div>
+    </div>
+
+    <!-- Bootstrap -->
     <script src="vendor/jquery/dist/jquery.min.js"></script>
     <script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Angular -->
     <script src="vendor/angular/angular.min.js"></script>
     <script src="vendor/angular-sanitize/angular-sanitize.min.js"></script>
     <script src="vendor/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script src="vendor/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="vendor/angular-http-error/angular-http-error.min.js"></script>
     <script src="vendor/ngprogress/build/ngProgress.min.js"></script>
+
+    <!-- App -->
     <script src="js/app.js"></script>
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-  </head>
-  <body data-ng-app="myapp">
   </body>
 </html>

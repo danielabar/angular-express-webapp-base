@@ -5,9 +5,15 @@
  * Do any config-level stuff on imported modules.
  */
 myapp.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
-  $stateProvider.state('home', {
-    url:'/'
-  });
+  $stateProvider
+    .state('home', {
+      url:'/'
+    })
+    .state('countries', {
+      url: '/countries',
+      templateUrl: 'templates/countryList.html',
+      controller: 'CountryController'
+    });
 
   $urlRouterProvider.otherwise('/');
 
