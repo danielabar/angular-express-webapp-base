@@ -192,6 +192,17 @@ module.exports = function(grunt) {
         ],
         tasks: ['clean:public-js','clean:public-templates','clean:generated','build']
       },
+      jshint: {
+        files: [
+          'app.js',
+          'lib/**/*.js',
+          'test/**/*.js',
+          'webclient/js/*.js',
+          'webclient/js/**/*.js',
+          'webclient/js/**/**/*.js'
+        ],
+        tasks: ['jshint']
+      },
       less: {
         files: [
           'webclient/less/**/*.less'
