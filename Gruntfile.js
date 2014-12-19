@@ -168,7 +168,7 @@ module.exports = function(grunt) {
         DB_PSWD: 'password',
         DB_PORT: 15432,
         DB_NAME: 'myappdb',
-        DB_POOL_SIZE: 10
+        DB_POOL_SIZE: 50
       }
     },
     nodemon: {
@@ -243,7 +243,7 @@ module.exports = function(grunt) {
       test: {
         options: {
           reporter: 'spec',
-          clearRequireCache: true
+          clearRequireCache: true   // set to true when mocha is used together with grunt watch
         },
         src: ['test/lib/**/*.js']
       }

@@ -29,3 +29,5 @@ var server = http.createServer(app);
 server.listen(app.get('port'), function() {
   console.log('Application node at %s listening on port %d', app.get('domain'), app.get('port'));
 });
+
+module.exports = app;
