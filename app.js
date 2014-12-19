@@ -4,7 +4,9 @@
 var path = require('path');
 var express = require('express');
 var compression = require('compression');
+var api = require('./lib/api');
 var app = express();
+
 app.set('domain', process.env.NODE_DOMAIN);
 app.set('port', process.env.NODE_PORT);
 app.set('app domain', process.env.APP_DOMAIN);
@@ -16,6 +18,7 @@ app.use(compression());
 app.use(require('body-parser').json());
 app.use(require('method-override')());
 app.use(express.static('public'));
+app.use('/api', api);
 
 app.get('/', function(req, res) {
   res.sendFile(__dirname + '/public/index.html');
