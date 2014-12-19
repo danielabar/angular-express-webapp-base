@@ -155,15 +155,19 @@ module.exports = function(grunt) {
         }
       }
     },
+    // TODO: How to have serverTests watched, but with different env:test to use the test database
     env: {
       dev: {
         NODE_ENV: 'development',
         NODE_PORT: '9080',
         NODE_DOMAIN: 'localhost',
         APP_PORT: '9080',
-        APP_DOMAIN: 'localhost'
-        //Add other environment variables here, such as connection parameters
-        //to various databases (redis, elasticsearch, etc.) in the Vagrant dev VM.
+        APP_DOMAIN: 'localhost',
+        DB_HOST: 'localhost',
+        DB_USER: 'postgres',
+        DB_PSWD: 'password',
+        DB_PORT: 15432,
+        DB_NAME: 'myappdb'
       }
     },
     nodemon: {
