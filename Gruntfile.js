@@ -167,7 +167,8 @@ module.exports = function(grunt) {
         DB_USER: 'postgres',
         DB_PSWD: 'password',
         DB_PORT: 15432,
-        DB_NAME: 'myappdb'
+        DB_NAME: 'myappdb',
+        DB_POOL_SIZE: 10
       }
     },
     nodemon: {
