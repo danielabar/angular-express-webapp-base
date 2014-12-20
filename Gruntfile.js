@@ -155,7 +155,7 @@ module.exports = function(grunt) {
         }
       }
     },
-    // TODO: How to have serverTests watched, but with different env:test to use the test database
+    // TODO: use options for shared config, then override for test, staging etc.
     env: {
       dev: {
         NODE_ENV: 'development',
@@ -178,7 +178,7 @@ module.exports = function(grunt) {
           ignore: ['node_modules/**'],
           ext: 'js',
           delay: 1000,
-          watch: ['lib']
+          watch: ['app.js', 'lib']
         }
       }
     },
@@ -221,10 +221,6 @@ module.exports = function(grunt) {
         files: ['webclient/index.html'],
         tasks: ['copy:index']
       },
-      serverTests: {
-        files: ['lib/**/*.js', 'test/lib/**/*.js'],
-        tasks: ['mochaTest']
-      },
       bower: {
         files: ['bower.json'],
         tasks: ['bower-install']
@@ -243,7 +239,7 @@ module.exports = function(grunt) {
       test: {
         options: {
           reporter: 'spec',
-          clearRequireCache: true   // set to true when mocha is used together with grunt watch
+          clearRequireCache: false   // set to true when mocha is used together with grunt watch
         },
         src: ['test/lib/**/*.js']
       }
@@ -275,13 +271,12 @@ module.exports = function(grunt) {
       });
   });
 
-  // This could be enhanced to also run client side tests
-  grunt.registerTask('allTests', ['env:dev', 'mochaTest']);
+  // FIXME setup env:test, This could be enhanced to also run client side tests
+  grunt.registerTask('test', ['env:dev', 'mochaTest']);
 
   grunt.registerTask('build-js', [
     'jshint:frontEndDevelopment',
     'jshint:backEndDevelopment',
-    'allTests',
     'ngtemplates',
     'concat:appClient',
     'ngAnnotate',
