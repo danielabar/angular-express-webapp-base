@@ -45,8 +45,10 @@ describe('Dao', function() {
       ];
       dao.transaction(queriesAndValues, function(err, result) {
         expect(err).to.be.null;
-        expect(result).to.equal('Transaction completed successfully');
-        done();
+        dao.rollback(result.client, result.done, function(err) {
+          expect(err).to.be.null;
+          done();
+        })
       });
     });
 

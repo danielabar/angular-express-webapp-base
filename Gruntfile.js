@@ -157,7 +157,6 @@ module.exports = function(grunt) {
     },
     env: {
       options: {
-        NODE_ENV: 'development',
         NODE_PORT: '9080',
         NODE_DOMAIN: 'localhost',
         APP_PORT: '9080',
@@ -169,9 +168,11 @@ module.exports = function(grunt) {
         DB_POOL_SIZE: 25
       },
       dev: {
+        NODE_ENV: 'development',
         DB_NAME: 'myappdb',
       },
       test: {
+        NODE_ENV: 'test',
         DB_NAME: 'myappdbtest',
       }
     },
