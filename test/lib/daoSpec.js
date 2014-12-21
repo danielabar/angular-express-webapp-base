@@ -45,13 +45,26 @@ describe('Dao', function() {
       ];
       dao.transaction(queriesAndValues, function(err, result) {
         expect(err).to.be.null;
-        dao.rollback(result.client, result.done, function(err) {
+        dao.rollback(result.client, result.done, function(err, result) {
           expect(err).to.be.null;
+          expect(result).to.equal('Transaction rolled back');
           done();
-        })
+        });
       });
     });
+  });
 
+  it('Unique constsraint violation causes transaction to rollback', function(done) {
+    var test1Data = {
+      query: 'INSERT INTO country(code, name, continent, region, surfacearea, population, localname, governmentform, code2) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)',
+      values: ['TT3', 'test country 3', 'Europe', 'Caribbean', 3, 3, 'foo', 'foo', 'T3']
+    };
+    var queriesAndValues = [test1Data, test1Data];
+    dao.transaction(queriesAndValues, function(err, result) {
+      expect(err).to.be.null;
+      expect(result).to.equal('Transaction rolled back');
+      done();
+    });
   });
 
 });
