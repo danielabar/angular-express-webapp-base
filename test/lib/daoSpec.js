@@ -29,4 +29,6 @@ describe('Dao', function() {
     });
   });
 
+  // TODO: use async to loop > poolsize times with errors then a success to verify error handling is releasing connections
+
 });
