@@ -45,9 +45,8 @@ describe('Dao', function() {
       ];
       dao.transaction(queriesAndValues, function(err, result) {
         expect(err).to.be.null;
-        dao.rollback(result.client, result.done, function(err, result) {
-          expect(err).to.be.null;
-          expect(result).to.equal('Transaction rolled back');
+        dao.rollback(result.client, result.done, function(err) {
+          expect(err.message).to.equal('Transaction rolled back');
           done();
         });
       });
@@ -60,9 +59,8 @@ describe('Dao', function() {
       values: ['TT3', 'test country 3', 'Europe', 'Caribbean', 3, 3, 'foo', 'foo', 'T3']
     };
     var queriesAndValues = [test1Data, test1Data];
-    dao.transaction(queriesAndValues, function(err, result) {
-      expect(err).to.be.null;
-      expect(result).to.equal('Transaction rolled back');
+    dao.transaction(queriesAndValues, function(err) {
+      expect(err.message).to.equal('Transaction rolled back');
       done();
     });
   });
