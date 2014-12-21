@@ -155,9 +155,8 @@ module.exports = function(grunt) {
         }
       }
     },
-    // TODO: use options for shared config, then override for test, staging etc.
     env: {
-      dev: {
+      options: {
         NODE_ENV: 'development',
         NODE_PORT: '9080',
         NODE_DOMAIN: 'localhost',
@@ -167,8 +166,13 @@ module.exports = function(grunt) {
         DB_USER: 'postgres',
         DB_PSWD: 'password',
         DB_PORT: 15432,
+        DB_POOL_SIZE: 25
+      },
+      dev: {
         DB_NAME: 'myappdb',
-        DB_POOL_SIZE: 50
+      },
+      test: {
+        DB_NAME: 'myappdbtest',
       }
     },
     nodemon: {
@@ -271,8 +275,7 @@ module.exports = function(grunt) {
       });
   });
 
-  // FIXME setup env:test, This could be enhanced to also run client side tests
-  grunt.registerTask('test', ['env:dev', 'mochaTest']);
+  grunt.registerTask('test', ['env:test', 'mochaTest']);
 
   grunt.registerTask('build-js', [
     'jshint:frontEndDevelopment',
