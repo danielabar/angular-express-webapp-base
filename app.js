@@ -42,6 +42,5 @@ process.once('exit', cleanup); //clean exit
 process.once('SIGINT', cleanup); //interrupted via ctrl+c
 process.once('uncaughtException', cleanup); //uncaught exceptions
 
-
 // consider wrapping this in if process.env.DEV...
-// process.once('SIGUSR2', cleanup); //interrupted via ctrl+c when using nodemon BUT not grunt-nodemon???
+process.once('SIGUSR2', cleanup); //interrupted via ctrl+c when using nodemon BUT not grunt-nodemon???
