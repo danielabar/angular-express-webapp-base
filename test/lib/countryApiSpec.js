@@ -2,7 +2,7 @@
 
 /*jshint expr: true*/
 
-var request = require('supertest')
+var request = require('supertest');
 var expect = require('chai').expect;
 var app = require('../../app');
 
@@ -18,8 +18,15 @@ describe('Country API', function() {
         expect(res.statusCode).to.equal(200);
         result = JSON.parse(res.text);
         expect(result).to.have.length.above(100);
-        done()
+        done();
       });
+  });
+
+  it('PUT /country returns not implemented error', function(done) {
+    request(app)
+      .put('/api/country')
+      .set('Accept', 'application/json')
+      .expect(501, done);
   });
 
 });
