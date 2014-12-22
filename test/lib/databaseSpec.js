@@ -5,7 +5,7 @@
 var expect = require('chai').expect;
 var db = require('../../lib/database');
 
-describe('db', function() {
+describe('Database Access', function() {
 
   it('Reads from the database', function(done) {
     var query = 'SELECT code, name FROM country WHERE name = $1::text';
@@ -49,18 +49,19 @@ describe('db', function() {
         });
       });
     });
-  });
 
-  it('Unique constsraint violation causes transaction to rollback', function(done) {
-    var test1Data = {
-      query: 'INSERT INTO country(code, name, continent, region, surfacearea, population, localname, governmentform, code2) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)',
-      values: ['TT3', 'test country 3', 'Europe', 'Caribbean', 3, 3, 'foo', 'foo', 'T3']
-    };
-    var queriesAndValues = [test1Data, test1Data];
-    db.transaction(queriesAndValues, function(err) {
-      expect(err.message).to.equal('Transaction rolled back');
-      done();
+    it('Unique constsraint violation causes transaction to rollback', function(done) {
+      var test1Data = {
+        query: 'INSERT INTO country(code, name, continent, region, surfacearea, population, localname, governmentform, code2) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)',
+        values: ['TT3', 'test country 3', 'Europe', 'Caribbean', 3, 3, 'foo', 'foo', 'T3']
+      };
+      var queriesAndValues = [test1Data, test1Data];
+      db.transaction(queriesAndValues, function(err) {
+        expect(err.message).to.equal('Transaction rolled back');
+        done();
+      });
     });
+
   });
 
 });
