@@ -70,7 +70,7 @@ describe.only('Database', function() {
           expect(err).to.be.null;
           expect(result.rowCount).to.equal(1);
           callback(null, result);
-        })
+        });
       },
       function(result, callback) {
         client.query(verifyQuery, verifyValues, function(err, result) {
@@ -79,7 +79,7 @@ describe.only('Database', function() {
           expect(result.rows[0].code).to.equal('TT1');
           expect(result.rows[1].code).to.equal('TT2');
           callback(null, 'done');
-        })
+        });
       }
     ], function(err, result) {
       expect(err).to.be.null;
