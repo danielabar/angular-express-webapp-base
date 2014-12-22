@@ -3,14 +3,14 @@
 /*jshint expr: true*/
 
 var expect = require('chai').expect;
-var dao = require('../../lib/dao');
+var db = require('../../lib/database');
 
-describe('Dao', function() {
+describe('db', function() {
 
   it('Reads from the database', function(done) {
     var query = 'SELECT code, name FROM country WHERE name = $1::text';
     var params = ['Belgium'];
-    dao.query(query, params, function(err, result) {
+    db.query(query, params, function(err, result) {
       expect(err).to.be.null;
       expect(result.rows).to.have.length(1);
       expect(result.rows[0].code).to.equal('BEL');
@@ -22,7 +22,7 @@ describe('Dao', function() {
   it('Calls back with error when invalid query is specified', function(done) {
     var invalidQuery = 'SELECT code, name FROM country WHERE foo = $1';
     var params = ['Belgium'];
-    dao.query(invalidQuery, params, function(err, result) {
+    db.query(invalidQuery, params, function(err, result) {
       expect(err).not.to.be.null;
       expect(result).to.be.undefined;
       done();
@@ -41,9 +41,9 @@ describe('Dao', function() {
           values: ['TT2', 'test country 2', 'Europe', 'Caribbean', 2, 2, 'foo', 'foo', 'T2']
         }
       ];
-      dao.transaction(queriesAndValues, function(err, result) {
+      db.transaction(queriesAndValues, function(err, result) {
         expect(err).to.be.null;
-        dao.rollback(result.client, result.done, function(err) {
+        db.rollback(result.client, result.done, function(err) {
           expect(err.message).to.equal('Transaction rolled back');
           done();
         });
@@ -57,7 +57,7 @@ describe('Dao', function() {
       values: ['TT3', 'test country 3', 'Europe', 'Caribbean', 3, 3, 'foo', 'foo', 'T3']
     };
     var queriesAndValues = [test1Data, test1Data];
-    dao.transaction(queriesAndValues, function(err) {
+    db.transaction(queriesAndValues, function(err) {
       expect(err.message).to.equal('Transaction rolled back');
       done();
     });
