@@ -16,6 +16,8 @@ describe.only('Database', function() {
   beforeEach(function(done) {
     db.getConnection(function(err, c) {
       expect(err).to.be.null;
+      expect(c.commit).to.be.a('function');
+      expect(c.rollback).to.be.a('function');
       client = c;
       done();
     });
