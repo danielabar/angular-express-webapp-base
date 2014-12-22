@@ -9,7 +9,7 @@ var async = require('async');
 // This should be run only once per entire test suite - consider placing in a separate file
 process.once('SIGUSR2', db.shutdown);
 
-describe.only('Database', function() {
+describe('Database', function() {
 
   var client;
 
