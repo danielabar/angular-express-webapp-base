@@ -5,6 +5,7 @@ var path = require('path');
 var express = require('express');
 var compression = require('compression');
 var api = require('./lib/api');
+var db = require('./lib/database');
 
 var app = express();
 app.set('domain', process.env.NODE_DOMAIN);
@@ -33,3 +34,14 @@ server.listen(app.get('port'), function() {
 
 // For supertest API integration testing, consider wrapping this in a if process.env.TEST...
 module.exports = app;
+
+var cleanup = function() {
+  db.shutdown();
+};
+process.once('exit', cleanup); //clean exit
+process.once('SIGINT', cleanup); //interrupted via ctrl+c
+process.once('uncaughtException', cleanup); //uncaught exceptions
+
+
+// consider wrapping this in if process.env.DEV...
+// process.once('SIGUSR2', cleanup); //interrupted via ctrl+c when using nodemon BUT not grunt-nodemon???

@@ -183,7 +183,12 @@ module.exports = function(grunt) {
           ignore: ['node_modules/**'],
           ext: 'js',
           delay: 1000,
-          watch: ['app.js', 'lib']
+          watch: ['app.js', 'lib'],
+          callback: function(nodemon) {
+            nodemon.on('quit', function() {
+              require('./lib/database').shutdown();
+            });
+          }
         }
       }
     },
