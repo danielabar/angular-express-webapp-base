@@ -35,16 +35,16 @@ server.listen(app.get('port'), function() {
 // For supertest API integration testing, consider wrapping this in a if process.env.TEST...
 module.exports = app;
 
-var cleanup = function(event) {
-  console.log('Initiating db cleanup due to event: ' + JSON.stringify(event));
+var cleanup = function() {
   db.shutdown();
 };
 process.once('exit', cleanup); //clean exit
 process.once('SIGINT', cleanup); //interrupted via ctrl+c
 
-// debug
+// TODO Investigate the right way to handle uncaught exceptions
 // process.once('uncaughtException', cleanup); //uncaught exceptions
-app.use(function(err, req, res, next){
+app.use(function(err, req, res, next) {
+  console.error(next);
   console.error(err.stack);
   res.status(500).send('unhandled error');
 });

@@ -24,10 +24,7 @@ describe('Database', function() {
   });
 
   afterEach(function(done) {
-    // client.rollback(done);
-    client.rollback(function(err) {
-      done();
-    })
+    client.rollback(done);
   });
 
   it('Reads from the database', function(done) {
