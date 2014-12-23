@@ -35,12 +35,23 @@ server.listen(app.get('port'), function() {
 // For supertest API integration testing, consider wrapping this in a if process.env.TEST...
 module.exports = app;
 
-var cleanup = function() {
+var cleanup = function(event) {
+  console.log('Initiating db cleanup due to event: ' + JSON.stringify(event));
   db.shutdown();
 };
 process.once('exit', cleanup); //clean exit
 process.once('SIGINT', cleanup); //interrupted via ctrl+c
-process.once('uncaughtException', cleanup); //uncaught exceptions
+
+// debug
+// process.once('uncaughtException', cleanup); //uncaught exceptions
+app.use(function(err, req, res, next){
+  console.error(err.stack);
+  res.status(500).send('unhandled error');
+});
+process.on('uncaughtException', function(err) {
+  console.log('Caught exception: ' + err);
+  cleanup();
+});
 
 // consider wrapping this in if process.env.DEV...
 process.once('SIGUSR2', cleanup); //interrupted via ctrl+c when using nodemon BUT not grunt-nodemon???
