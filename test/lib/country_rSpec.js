@@ -7,7 +7,7 @@ var sinon = require('sinon');
 var countryResource = require('../../lib/country_r');
 var db = require('../../lib/database');
 
-describe.only('Country Resource', function() {
+describe('Country Resource', function() {
 
   var client;
   beforeEach(function(done) {
@@ -43,9 +43,10 @@ describe.only('Country Resource', function() {
       });
 
       // TODO Put this in async waterfall
-      countryResource.create(country, function(err, insertResult) {
+      countryResource.create(client, country, function(err, insertResult) {
         expect(err).to.be.null;
         expect(insertResult.rowCount).to.equal(1);
+        expect(insertResult.rows[0].code).to.equal('AA1');
         client.query('SELECT code FROM country where code = $1', ['AA1'], function(err, result) {
           expect(err).to.be.null;
           expect(result.rows).to.have.length(1);
