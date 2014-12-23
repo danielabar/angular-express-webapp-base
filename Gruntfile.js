@@ -174,6 +174,7 @@ module.exports = function(grunt) {
       test: {
         NODE_ENV: 'test',
         DB_NAME: 'myappdbtest',
+        ALWAYS_ROLLBACK: true
       }
     },
     nodemon: {
