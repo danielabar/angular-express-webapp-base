@@ -6,7 +6,9 @@ var express = require('express');
 var compression = require('compression');
 var api = require('./lib/api');
 var db = require('./lib/database');
+var winston = require('winston');
 
+// Express
 var app = express();
 app.set('domain', process.env.NODE_DOMAIN);
 app.set('port', process.env.NODE_PORT);
@@ -25,11 +27,14 @@ app.get('/', function(req, res) {
   res.sendFile(__dirname + '/public/index.html');
 });
 
+// Logger - TODO: add options for File Transport as per https://github.com/flatiron/winston#working-with-transports
+winston.add(winston.transports.File, { filename: process.env.LOG_FILE_NAME });
+
 // Server
 var http = require('http');
 var server = http.createServer(app);
 server.listen(app.get('port'), function() {
-  console.log('Application node at %s listening on port %d', app.get('domain'), app.get('port'));
+  winston.info('Application node at %s listening on port %d', app.get('domain'), app.get('port'));
 });
 
 // For supertest API integration testing, consider wrapping this in a if process.env.TEST...
@@ -44,12 +49,12 @@ process.once('SIGINT', cleanup); //interrupted via ctrl+c
 // TODO Investigate the right way to handle uncaught exceptions
 // process.once('uncaughtException', cleanup); //uncaught exceptions
 app.use(function(err, req, res, next) {
-  console.error(next);
-  console.error(err.stack);
+  winston.error(next);
+  winston.error(err.stack);
   res.status(500).send('unhandled error');
 });
 process.on('uncaughtException', function(err) {
-  console.log('Caught exception: ' + err);
+  winston.error('Caught exception: ' + err);
   cleanup();
 });
 

@@ -165,7 +165,8 @@ module.exports = function(grunt) {
         DB_USER: 'postgres',
         DB_PSWD: 'password',
         DB_PORT: 15432,
-        DB_POOL_SIZE: 25
+        DB_POOL_SIZE: 25,
+        LOG_FILE_NAME: 'log/app.log'
       },
       dev: {
         NODE_ENV: 'development',
@@ -174,7 +175,8 @@ module.exports = function(grunt) {
       test: {
         NODE_ENV: 'test',
         DB_NAME: 'myappdbtest',
-        ALWAYS_ROLLBACK: true
+        ALWAYS_ROLLBACK: true,
+        LOG_FILE_NAME: 'log/test.log'
       }
     },
     nodemon: {
