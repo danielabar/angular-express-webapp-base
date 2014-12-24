@@ -1,15 +1,15 @@
 'use strict';
 
-// Intialize ExpressJS
+// Logger
+require('./lib/log');
+var winston = require('winston');
+var logger = winston.loggers.get('app');
+
 var path = require('path');
 var express = require('express');
 var compression = require('compression');
 var api = require('./lib/api');
 var db = require('./lib/database');
-
-// Logger
-require('./lib/log');
-var winston = require('winston');
 
 // Express
 var app = express();
@@ -35,7 +35,7 @@ app.get('/', function(req, res) {
 var http = require('http');
 var server = http.createServer(app);
 server.listen(app.get('port'), function() {
-  winston.info('Application node at %s listening on port %d', app.get('domain'), app.get('port'));
+  logger.info('Application node at %s listening on port %d', app.get('domain'), app.get('port'));
 });
 
 // For supertest API integration testing, consider wrapping this in a if process.env.TEST...
@@ -50,12 +50,11 @@ process.once('SIGINT', cleanup); //interrupted via ctrl+c
 // TODO Investigate the right way to handle uncaught exceptions
 // process.once('uncaughtException', cleanup); //uncaught exceptions
 app.use(function(err, req, res, next) {
-  winston.error(next);
-  winston.error(err.stack);
-  res.status(500).send('unhandled error');
+  logger.error('Unhandled exception.', {reason: err, nextCb: next});
+  res.status(500).end();
 });
 process.on('uncaughtException', function(err) {
-  winston.error('Caught exception: ' + err);
+  logger.error('Unhandled exception.', {reason: err});
   cleanup();
 });
 
