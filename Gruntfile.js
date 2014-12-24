@@ -166,7 +166,8 @@ module.exports = function(grunt) {
         DB_PSWD: 'password',
         DB_PORT: 15432,
         DB_POOL_SIZE: 25,
-        LOG_FILE_NAME: 'log/app.log'
+        APP_LOG_FILE_NAME: 'log/app.log',
+        DB_LOG_FILE_NAME: 'log/db.log'
       },
       dev: {
         NODE_ENV: 'development',
@@ -175,8 +176,7 @@ module.exports = function(grunt) {
       test: {
         NODE_ENV: 'test',
         DB_NAME: 'myappdbtest',
-        ALWAYS_ROLLBACK: true,
-        LOG_FILE_NAME: 'log/test.log'
+        ALWAYS_ROLLBACK: true
       }
     },
     nodemon: {
