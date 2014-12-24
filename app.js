@@ -50,11 +50,11 @@ process.once('SIGINT', cleanup); //interrupted via ctrl+c
 // TODO Investigate the right way to handle uncaught exceptions
 // process.once('uncaughtException', cleanup); //uncaught exceptions
 app.use(function(err, req, res, next) {
-  logger.error('Unhandled exception.', {reason: err, nextCb: next});
+  logger.error('Unhandled exception.', {reason: err, stack: err.stack, nextCb: next});
   res.status(500).end();
 });
 process.on('uncaughtException', function(err) {
-  logger.error('Unhandled exception.', {reason: err});
+  logger.error('Unhandled exception.', {reason: err, stack: err.stack});
   cleanup();
 });
 
