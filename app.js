@@ -6,6 +6,9 @@ var express = require('express');
 var compression = require('compression');
 var api = require('./lib/api');
 var db = require('./lib/database');
+
+// Logger
+require('./lib/log');
 var winston = require('winston');
 
 // Express
@@ -27,8 +30,6 @@ app.get('/', function(req, res) {
   res.sendFile(__dirname + '/public/index.html');
 });
 
-// Logger - TODO: add options for File Transport as per https://github.com/flatiron/winston#working-with-transports
-winston.add(winston.transports.File, { filename: process.env.LOG_FILE_NAME });
 
 // Server
 var http = require('http');
