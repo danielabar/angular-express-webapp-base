@@ -77,7 +77,6 @@ describe('Country API', function() {
   });
 
   it('GET /country/:id returns 404 when country code not found', function(done) {
-    var result;
     request(app)
       .get('/api/country/FOO')
       .set('Accept', 'application/json')
