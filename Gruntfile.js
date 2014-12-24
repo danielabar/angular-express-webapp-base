@@ -168,7 +168,8 @@ module.exports = function(grunt) {
         DB_POOL_SIZE: 25,
         APP_LOG_FILE_NAME: 'log/app.log',
         DB_LOG_FILE_NAME: 'log/db.log',
-        RESOURCE_LOG_FILE_NAME: 'log/resource.log'
+        RESOURCE_LOG_FILE_NAME: 'log/resource.log',
+        EXPRESS_LOG_FILE_NAME: 'log/express.log'
       },
       dev: {
         NODE_ENV: 'development',

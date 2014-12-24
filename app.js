@@ -3,6 +3,7 @@
 // Logger
 require('./lib/log');
 var winston = require('winston');
+var expressWinston = require('express-winston');
 var logger = winston.loggers.get('app');
 
 var path = require('path');
@@ -24,12 +25,16 @@ app.use(compression());
 app.use(require('body-parser').json());
 app.use(require('method-override')());
 app.use(express.static('public'));
+
+app.use(expressWinston.logger({
+  winstonInstance: winston.loggers.get('express')
+}));
+
 app.use('/api', api);
 
 app.get('/', function(req, res) {
   res.sendFile(__dirname + '/public/index.html');
 });
-
 
 // Server
 var http = require('http');
