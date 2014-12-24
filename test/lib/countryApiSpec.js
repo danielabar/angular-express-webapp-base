@@ -46,11 +46,18 @@ describe('Country API', function() {
       });
   });
 
-  // it('PUT /country returns not implemented error', function(done) {
-  //   request(app)
-  //     .put('/api/country')
-  //     .set('Accept', 'application/json')
-  //     .expect(501, done);
-  // });
+  it('PUT /country is not implemented', function(done) {
+    request(app)
+      .put('/api/country')
+      .set('Accept', 'application/json')
+      .expect(501, done);
+  });
+
+  it('DELETE /country is not implemented', function(done) {
+    request(app)
+      .delete('/api/country')
+      .set('Accept', 'application/json')
+      .expect(501, done);
+  });
 
 });
