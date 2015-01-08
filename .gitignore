@@ -9,3 +9,7 @@ lib-cov
 lib-cov
 coverage.html
 log
+
+# Grunt nodemon livereload
+.rebooted
+rebooted

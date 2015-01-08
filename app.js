@@ -64,4 +64,4 @@ process.on('uncaughtException', function(err) {
 });
 
 // consider wrapping this in if process.env.DEV...
-process.once('SIGUSR2', cleanup); //interrupted via ctrl+c when using nodemon BUT not grunt-nodemon???
+process.once('SIGUSR2', cleanup); //interrupted via ctrl+c when using nodemon BUT not grunt-nodemon

@@ -14,6 +14,14 @@ module.exports = function(grunt) {
       'generated': ['webclient/generated'],
       'bower':['webclient/vendor']
     },
+    inject: {
+      single: {
+        scriptSrc: 'workflow.js',
+        files: {
+          'public/index.html': 'webclient/index.html'
+        }
+      }
+    },
     less: {
       appClient: {
         options: {
@@ -190,15 +198,25 @@ module.exports = function(grunt) {
           delay: 1000,
           watch: ['app.js', 'lib'],
           callback: function(nodemon) {
+
             // TOOD: remove quit handler?
             nodemon.on('quit', function() {
               require('./lib/database').shutdown();
             });
+
             // opens browser on initial server start
              nodemon.on('config:update', function () {
                // Delay before server listens on port
                setTimeout(function() {
                  require('open')('http://localhost:9080/#/countries');
+               }, 1000);
+             });
+
+             // refreshes browser when server reboots
+             nodemon.on('restart', function () {
+               // Delay before server listens on port
+               setTimeout(function() {
+                 require('fs').writeFileSync('.rebooted', 'rebooted');
                }, 1000);
              });
           }
@@ -208,6 +226,12 @@ module.exports = function(grunt) {
     watch: {
       options: {
         spawn: false
+      },
+      server: {
+        files: ['.rebooted'],
+        options: {
+          livereload: true
+        }
       },
       js: {
         files: [
@@ -283,6 +307,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-nodemon');
   grunt.loadNpmTasks('grunt-ng-annotate');
   grunt.loadNpmTasks('grunt-mocha-test');
+  grunt.loadNpmTasks('grunt-inject');
 
   //Use the real bower instead of the fragile grunt plugins that wrap it
   grunt.registerTask('bower-install', 'install front-end dependencies using bower', function() {
@@ -317,5 +342,5 @@ module.exports = function(grunt) {
     'copy:index'
   ]);
 
-  grunt.registerTask('default', ['env:dev', 'build', 'concurrent']);
+  grunt.registerTask('default', ['env:dev', 'build', 'inject:single', 'concurrent']);
 };
