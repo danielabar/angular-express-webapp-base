@@ -227,18 +227,24 @@ module.exports = function(grunt) {
       options: {
         spawn: false
       },
-      server: {
-        files: ['.rebooted'],
-        options: {
-          livereload: true
-        }
-      },
       js: {
         files: [
           'webclient/js/**/*.js',
           'webclient/templates/**/*.html'
         ],
-        tasks: ['clean:public-js','clean:public-templates','clean:generated','build']
+        tasks: ['clean:public-js','clean:public-templates','clean:generated','build','writeClientReloadFile']
+      },
+      // serverReload: {
+      //   files: ['.rebooted'],
+      //   options: {
+      //     livereload: true
+      //   }
+      // },
+      clientReload: {
+        files: ['.clientreload'],
+        options: {
+          livereload: true
+        }
       },
       jshint: {
         files: [
@@ -339,8 +345,14 @@ module.exports = function(grunt) {
     'copy:fonts',
     'copy:images',
     'copy:vendor',
-    'copy:index'
+    'copy:index',
+    'inject:single'
   ]);
 
-  grunt.registerTask('default', ['env:dev', 'build', 'inject:single', 'concurrent']);
+  grunt.registerTask('writeClientReloadFile', function() {
+    require('fs').writeFileSync('.clientreload', new Date());
+    grunt.log.writeln('Wrote .clientreload file');
+  });
+
+  grunt.registerTask('default', ['env:dev', 'build', 'concurrent']);
 };

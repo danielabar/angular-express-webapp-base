@@ -10,6 +10,6 @@ lib-cov
 coverage.html
 log
 
-# Grunt nodemon livereload
+# Livereload indicator
 .rebooted
-rebooted
+.clientreload
