@@ -198,25 +198,9 @@ module.exports = function(grunt) {
           delay: 1000,
           watch: ['app.js', 'lib'],
           callback: function(nodemon) {
-
-            // TOOD: remove quit handler?
-            nodemon.on('quit', function() {
-              require('./lib/database').shutdown();
-            });
-
-            // opens browser on initial server start
              nodemon.on('config:update', function () {
-               // Delay before server listens on port
                setTimeout(function() {
                  require('open')('http://localhost:9080/#/countries');
-               }, 1000);
-             });
-
-             // refreshes browser when server reboots
-             nodemon.on('restart', function () {
-               // Delay before server listens on port
-               setTimeout(function() {
-                 require('fs').writeFileSync('.rebooted', 'rebooted');
                }, 1000);
              });
           }
@@ -234,12 +218,6 @@ module.exports = function(grunt) {
         ],
         tasks: ['clean:public-js','clean:public-templates','clean:generated','build','writeClientReloadFile']
       },
-      // serverReload: {
-      //   files: ['.rebooted'],
-      //   options: {
-      //     livereload: true
-      //   }
-      // },
       clientReload: {
         files: ['.clientreload'],
         options: {
