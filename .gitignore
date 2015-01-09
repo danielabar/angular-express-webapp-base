@@ -11,5 +11,4 @@ coverage.html
 log
 
 # Livereload indicator
-.rebooted
 .clientreload
