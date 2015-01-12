@@ -6,17 +6,6 @@
  */
 myapp.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 
-  // TODO Extract this to a factory/service (http://odetocode.com/blogs/scott/archive/2014/05/20/using-resolve-in-angularjs-routes.aspx)
-  var checkCanCreateCountry = function($q, $timeout, $http) {
-    var deferred = $q.defer();
-    $http.get('/permission/cando/country/POST').success(function(response) {
-      $timeout(function() {
-        deferred.resolve(response.canDo);
-      }, 0);
-    });
-    return deferred.promise;
-  };
-
   $stateProvider
     .state('home', {
       url:'/'
@@ -26,7 +15,9 @@ myapp.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
       templateUrl: 'templates/countryList.html',
       controller: 'CountryController',
       resolve: {
-        canCreateCountry: checkCanCreateCountry
+        canCreateCountry: function(PermissionService) {
+          return PermissionService.checkCanCreateCountry();
+        }
       }
     })
     .state('countries.add', {
