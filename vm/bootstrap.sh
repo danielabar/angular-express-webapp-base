@@ -38,9 +38,11 @@ if [ ! -f /var/log/provision/postgressetup ];
 
   # Populate the databases with sample data and authorization scheme
   sudo -u postgres psql myappdb < /vagrant/data/postgres/world.sql
-  # sudo -u postgres psql myappdb < /vagrant/data/postgres/authorization.sql
+  sudo -u postgres psql myappdb < /vagrant/data/postgres/authorization.sql
+  sudo -u postgres psql myappdb < /vagrant/data/postgres/auth_data.sql
   sudo -u postgres psql myappdbtest < /vagrant/data/postgres/world.sql
-  # sudo -u postgres psql myappdbtest < /vagrant/data/postgres/authorization.sql
+  sudo -u postgres psql myappdbtest < /vagrant/data/postgres/authorization.sql
+  sudo -u postgres psql myappdbtest < /vagrant/data/postgres/auth_data.sql
 
   # Restart PostgreSQL server for config changes to take effect
   /etc/init.d/postgresql restart
