@@ -6,9 +6,10 @@
  */
 myapp.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 
+  // TODO Extract this to a factory/service (http://odetocode.com/blogs/scott/archive/2014/05/20/using-resolve-in-angularjs-routes.aspx)
   var checkCanCreateCountry = function($q, $timeout, $http) {
     var deferred = $q.defer();
-    $http.get('/permission/canCreateCountry').success(function(response) {
+    $http.get('/permission/cando/country/POST').success(function(response) {
       $timeout(deferred.resolve(response.canDo), 0);
     });
     return deferred.promise;
@@ -32,8 +33,7 @@ myapp.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 
   $urlRouterProvider.otherwise('/');
 
-  //Connect all HTTP events to the $rootScope bus, so that
-  //we can connect them to ngProgress in databricks.run()
+  //Connect all HTTP events to the $rootScope bus, so that we can connect them to ngProgress in databricks.run()
   $httpProvider.interceptors.push(function($q, $rootScope){
     return {
       'request': function(config) {
@@ -66,11 +66,9 @@ myapp.run(function(
 
   //Hook up starting and ending of HTTP requests to ngProgress, for pretty progress bar
   $rootScope.$on('end request', function(){
-    //console.log('end request');
     ngProgress.complete();
   });
   $rootScope.$on('start request', function(){
-    //console.log('start request');
     ngProgress.reset();
     ngProgress.start();
   });
