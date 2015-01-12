@@ -1,1 +1,27 @@
-<h2>Add Country</h2>
+<form name="newCountryForm" ng-submit="createCountry()">
+  <legend>Create new country</legend>
+  <div class="alert alert-danger" ng-show="countryCreateErrorMessage"> {{countryCreateErrorMessage}} </div>
+  <div class="form-group">
+    <label for="countryCode" class="control-label">Code3</label>
+    <input type="text" name="countryCode" class="form-control" ng-model="newCountry.code" minlength="3" maxlength="3" required />
+  </div>
+  <div class="form-group">
+    <label for="countryCode2" class="control-label">Code2</label>
+    <input type="text" name="countryCode2" class="form-control" ng-model="newCountry.code2" minlength="2" maxlength="2" required />
+  </div>
+  <div class="form-group">
+    <label for="countryName" class="control-label">Name</label>
+    <input type="text" name="countryName" class="form-control" ng-model="newCountry.name" required />
+  </div>
+  <div class="form-group">
+    <label for="countryContinent" class="control-label">Continent</label>
+    <select class="form-control" name="countryContinent" ng-model="newCountry.continent" ng-options="c.name for c in continents" required></select>
+  </div>
+  <div class="form-group">
+    <label for="countryRegion" class="control-label">Region</label>
+    <input type="text" name="countryRegion" class="form-control" ng-model="newCountry.region" required />
+  </div>
+  <div class="form-group">
+    <button class="btn btn-success" type="submit">Create</button>
+  </div>
+</form>
