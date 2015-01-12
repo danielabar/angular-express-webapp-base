@@ -60,4 +60,17 @@ ALTER TABLE auth_user_group ADD CONSTRAINT user_group_pkey PRIMARY KEY (user_gro
 ALTER TABLE auth_user_group ADD CONSTRAINT user_group_user_fkey FOREIGN KEY (user_id) REFERENCES auth_user(user_id);
 ALTER TABLE auth_user_group ADD CONSTRAINT user_group_group_fkey FOREIGN KEY (group_id) REFERENCES auth_group(group_id);
 
+-- View: Does User have Permission?
+CREATE OR REPLACE VIEW vw_auth_user_permission AS
+  SELECT u.username
+    , g.name as group_name
+    , p.resource
+    , p.action
+  FROM auth_user u
+  INNER JOIN auth_user_group ug ON ug.user_id = u.user_id
+  INNER JOIN auth_group g ON g.group_id = ug.group_id
+  INNER JOIN auth_group_permission gp ON gp.group_id = ug.group_id
+  INNER JOIN auth_permission p ON p.permission_id = gp.permission_id;
+
+
 COMMIT;
