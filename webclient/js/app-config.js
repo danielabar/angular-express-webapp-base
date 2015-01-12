@@ -5,6 +5,15 @@
  * Do any config-level stuff on imported modules.
  */
 myapp.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+
+  var checkCanCreateCountry = function($q, $timeout, $http) {
+    var deferred = $q.defer();
+    $http.get('/permission/canCreateCountry').success(function(response) {
+      $timeout(deferred.resolve(response.canDo), 0);
+    });
+    return deferred.promise;
+  };
+
   $stateProvider
     .state('home', {
       url:'/'
@@ -12,7 +21,13 @@ myapp.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
     .state('countries', {
       url: '/countries',
       templateUrl: 'templates/countryList.html',
-      controller: 'CountryController'
+      controller: 'CountryController',
+      resolve: {
+        canCreateCountry: checkCanCreateCountry
+      }
+    })
+    .state('countries.add', {
+      templateUrl: 'templates/countryAdd.html'
     });
 
   $urlRouterProvider.otherwise('/');

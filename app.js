@@ -10,6 +10,7 @@ var path = require('path');
 var express = require('express');
 var compression = require('compression');
 var api = require('./lib/api');
+var permission = require('./lib/permission');
 var db = require('./lib/database');
 
 // Express
@@ -31,6 +32,7 @@ app.use(expressWinston.logger({
 }));
 
 app.use('/api', api);
+app.use('/permission', permission);
 
 app.get('/', function(req, res) {
   res.sendFile(__dirname + '/public/index.html');
