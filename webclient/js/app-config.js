@@ -10,7 +10,9 @@ myapp.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
   var checkCanCreateCountry = function($q, $timeout, $http) {
     var deferred = $q.defer();
     $http.get('/permission/cando/country/POST').success(function(response) {
-      $timeout(deferred.resolve(response.canDo), 0);
+      $timeout(function() {
+        deferred.resolve(response.canDo);
+      }, 0);
     });
     return deferred.promise;
   };
