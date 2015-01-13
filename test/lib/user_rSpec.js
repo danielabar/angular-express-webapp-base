@@ -91,4 +91,23 @@ describe('User Resource', function() {
 
   });
 
+  describe('Find all users', function() {
+
+    it('Returns rows for each user', function(done) {
+      userResource.all(client, function(err, result) {
+        expect(err).to.be.null;
+        expect(result.rows).to.have.length.above(0);
+        result.rows.forEach(function(row) {
+          expect(row).to.have.ownProperty('user_id');
+          expect(row).to.have.ownProperty('username');
+          expect(row).to.have.ownProperty('email');
+          expect(row).to.have.ownProperty('first_name');
+          expect(row).to.have.ownProperty('last_name');
+        });
+        done();
+      });
+    });
+
+  })
+
 });
