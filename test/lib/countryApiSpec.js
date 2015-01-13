@@ -23,7 +23,7 @@ describe('Country API', function() {
   });
 
   it('POST /country inserts a new country', function(done) {
-    var result;
+    var createdCountry;
     var country = {
       code: 'BB1',
       name: 'Test Country BB1',
@@ -38,10 +38,10 @@ describe('Country API', function() {
       .expect('Content-Type', /json/)
       .end(function(err, res) {
          expect(res.statusCode).to.equal(201);
-         result = JSON.parse(res.text);
-         expect(result[0].code).to.equal('BB1');
-         expect(result[0].name).to.equal('Test Country BB1');
-         expect(result[0].continent).to.equal('Europe');
+         createdCountry = JSON.parse(res.text);
+         expect(createdCountry.code).to.equal('BB1');
+         expect(createdCountry.name).to.equal('Test Country BB1');
+         expect(createdCountry.continent).to.equal('Europe');
          done();
       });
   });

@@ -7,13 +7,13 @@ myapp.controller('CountryController', function($scope, CountryResource, $state, 
 
   // TODO This should come from a ContinentResource and be fetched from resource/http
   $scope.continents = [
-    {name: 'Europe'},
-    {name: 'Oceania'},
-    {name: 'Asia'},
-    {name: 'North America'},
-    {name: 'Africa'},
-    {name: 'Antarctica'},
-    {name: 'South America'},
+    'Europe',
+    'Oceania',
+    'Asia',
+    'North America',
+    'Africa',
+    'Antarctica',
+    'South America',
   ];
 
   if (canCreateCountry) {

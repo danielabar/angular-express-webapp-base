@@ -135,7 +135,7 @@ module.exports = function(grunt) {
         camelcase: true,
         strict:    true,
         indent:    2,
-        "-W058": true,
+        '-W058': true,
         ignores: ['node_modules/**', 'public/vendor/**', 'webclient/vendor/**', 'webclient/generated/**']
       },
       frontEndDevelopment: {

@@ -1,6 +1,5 @@
 'use strict';
 
-// TODO: Handle errors
 myapp.factory('CountryResource', function($resource) {
   var url = '/api/country';
   var paramDefaults = {};
@@ -12,7 +11,4 @@ myapp.factory('CountryResource', function($resource) {
     }
   };
   return $resource(url, paramDefaults, actions);
-  // return $resource('/api/country/:id', { id : '@code'}, {
-  //   'update': { method: 'PUT' }
-  // });
 });
