@@ -108,6 +108,6 @@ describe('User Resource', function() {
       });
     });
 
-  })
+  });
 
 });
