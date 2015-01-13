@@ -23,12 +23,12 @@ myapp.controller('CountryController', function($scope, CountryResource, $state, 
   $scope.newCountry = new CountryResource;
   $scope.createCountry = function() {
     $scope.newCountry.$save().then(function(response) {
-      $scope.countries.push(response);        // update edge list
+      $scope.countries.push(response);          // update country list
       $scope.newCountry = new CountryResource;  // reset to blank form
       $scope.countryCreateErrorMessage = false;
     },
-    function(response) {
-      $scope.countryCreateErrorMessage = response.data.message;
+    function() {
+      $scope.countryCreateErrorMessage = 'Unable to create country';
     });
   };
 
