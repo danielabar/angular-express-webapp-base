@@ -1,27 +1,41 @@
-<form name="newCountryForm" ng-submit="createCountry()">
+<form name="newCountryForm" novalidate ng-submit="createCountry()">
   <legend>Create new country</legend>
+
+  <!-- Message(s) -->
   <div class="alert alert-danger" ng-show="countryCreateErrorMessage"> {{countryCreateErrorMessage}} </div>
-  <div class="form-group">
+
+  <!-- Code (3 character) -->
+  <div class="form-group" ng-class="{'has-error': newCountryForm.countryCode.$invalid && newCountryForm.countryCode.$dirty, 'has-success': newCountryForm.countryCode.$valid && newCountryForm.countryCode.$dirty}">
     <label for="countryCode" class="control-label">Code3</label>
     <input type="text" name="countryCode" class="form-control" ng-model="newCountry.code" minlength="3" maxlength="3" required />
   </div>
-  <div class="form-group">
+
+  <!-- Code (2 character) -->
+  <div class="form-group" ng-class="{'has-error': newCountryForm.countryCode2.$invalid && newCountryForm.countryCode2.$dirty, 'has-success': newCountryForm.countryCode2.$valid && newCountryForm.countryCode2.$dirty}">
     <label for="countryCode2" class="control-label">Code2</label>
     <input type="text" name="countryCode2" class="form-control" ng-model="newCountry.code2" minlength="2" maxlength="2" required />
   </div>
-  <div class="form-group">
+
+  <!-- Name -->
+  <div class="form-group" ng-class="{'has-error': newCountryForm.countryName.$invalid && newCountryForm.countryName.$dirty, 'has-success': newCountryForm.countryName.$valid && newCountryForm.countryName.$dirty}">
     <label for="countryName" class="control-label">Name</label>
-    <input type="text" name="countryName" class="form-control" ng-model="newCountry.name" required />
+    <input type="text" name="countryName" class="form-control" ng-model="newCountry.name" minlength="1" maxlength="100" required />
   </div>
+
+  <!-- Continent -->
   <div class="form-group">
     <label for="countryContinent" class="control-label">Continent</label>
     <select class="form-control" name="countryContinent" ng-model="newCountry.continent" ng-options="c for c in continents" required></select>
   </div>
-  <div class="form-group">
+
+  <!-- Region -->
+  <div class="form-group" ng-class="{'has-error': newCountryForm.countryRegion.$invalid && newCountryForm.countryRegion.$dirty, 'has-success': newCountryForm.countryRegion.$valid && newCountryForm.countryRegion.$dirty}">
     <label for="countryRegion" class="control-label">Region</label>
-    <input type="text" name="countryRegion" class="form-control" ng-model="newCountry.region" required />
+    <input type="text" name="countryRegion" class="form-control" ng-model="newCountry.region" minlength="1" maxlength="100" required />
   </div>
+
+  <!-- Submit -->
   <div class="form-group">
-    <button class="btn btn-success" type="submit">Create</button>
+    <button class="btn btn-success" type="submit" ng-disabled="newCountryForm.$invalid">Create</button>
   </div>
 </form>

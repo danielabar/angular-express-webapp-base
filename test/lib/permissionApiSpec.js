@@ -10,7 +10,7 @@ var app = require('../../app');
 describe('Permission API', function() {
 
   it('GET /cando returns true for user having access to a resource and verb', function(done) {
-    var resource = 'country'
+    var resource = 'country';
     var verb = 'POST';
     var result;
     request(app)
@@ -26,7 +26,7 @@ describe('Permission API', function() {
   });
 
   it('GET /cando returns false for user not having access to a resource and verb', function(done) {
-    var resource = 'country'
+    var resource = 'country';
     var verb = 'PATCH';
     var result;
     request(app)

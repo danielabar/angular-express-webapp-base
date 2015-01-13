@@ -5,7 +5,11 @@ myapp.controller('CountryController', function($scope, CountryResource, $state, 
   $scope.fields = ['code', 'name', 'continent'];
   $scope.countries = CountryResource.query();
 
-  // TODO This should come from a ContinentResource and be fetched from resource/http
+
+  if (canCreateCountry) {
+    $state.transitionTo('countries.add');
+  }
+
   $scope.continents = [
     'Europe',
     'Oceania',
@@ -15,21 +19,22 @@ myapp.controller('CountryController', function($scope, CountryResource, $state, 
     'Antarctica',
     'South America',
   ];
-
-  if (canCreateCountry) {
-    $state.transitionTo('countries.add');
-  }
-
   $scope.newCountry = new CountryResource;
+  $scope.newCountry.continent = $scope.continents[0];
+
+  // Issue: Create country form is in a child view, don't have access to $scope.newCountryForm
   $scope.createCountry = function() {
-    $scope.newCountry.$save().then(function(response) {
-      $scope.countries.push(response);          // update country list
-      $scope.newCountry = new CountryResource;  // reset to blank form
-      $scope.countryCreateErrorMessage = false;
-    },
-    function() {
-      $scope.countryCreateErrorMessage = 'Unable to create country';
-    });
+    // if ($scope.newCountryForm.$valid) {
+      $scope.newCountry.$save().then(function(response) {
+        $scope.countries.push(response);          // update country list
+        $scope.newCountry = new CountryResource;  // reset to blank form
+        // $scope.newCountryForm.$setPristine();
+        $scope.countryCreateErrorMessage = false;
+      },
+      function() {
+        $scope.countryCreateErrorMessage = 'Unable to create country';
+      });
+    // }
   };
 
 });
