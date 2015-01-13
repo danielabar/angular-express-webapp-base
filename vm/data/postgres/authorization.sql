@@ -72,5 +72,12 @@ CREATE OR REPLACE VIEW vw_auth_user_permission AS
   INNER JOIN auth_group_permission gp ON gp.group_id = ug.group_id
   INNER JOIN auth_permission p ON p.permission_id = gp.permission_id;
 
+-- View: Does User belong to Group?
+CREATE OR REPLACE VIEW vw_auth_user_group AS
+  SELECT u.username
+    , g.name as group_name
+  FROM auth_user u
+  INNER JOIN auth_user_group ug ON ug.user_id = u.user_id
+  INNER JOIN auth_group g ON g.group_id = ug.group_id;
 
 COMMIT;

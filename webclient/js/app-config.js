@@ -26,7 +26,7 @@ myapp.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 
   $urlRouterProvider.otherwise('/');
 
-  //Connect all HTTP events to the $rootScope bus, so that we can connect them to ngProgress in databricks.run()
+  //Connect all HTTP events to the $rootScope bus, so that we can connect them to ngProgress in myapp.run()
   $httpProvider.interceptors.push(function($q, $rootScope){
     return {
       'request': function(config) {

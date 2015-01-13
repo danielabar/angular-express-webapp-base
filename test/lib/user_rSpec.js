@@ -1,6 +1,7 @@
 'use strict';
 
 /*jshint expr: true*/
+/*jshint camelcase: false*/
 
 var expect = require('chai').expect;
 var userResource = require('../../lib/user_r');
@@ -25,7 +26,7 @@ describe('User Resource', function() {
   });
 
 
-  describe('Find user permissions', function() {
+  describe('Find user permission', function() {
 
     it('Returns a row when user has ability to perform an action on a resource', function(done) {
       var username = 'jdoe';
@@ -34,9 +35,9 @@ describe('User Resource', function() {
       userResource.findUserPermission(client, username, resource, action, function(err, result) {
         expect(err).to.be.null;
         expect(result.rows).to.have.length(1);
-        expect(result.rows[0].username).to.equal('jdoe');
-        expect(result.rows[0].resource).to.equal('country');
-        expect(result.rows[0].action).to.equal('GET');
+        expect(result.rows[0].username).to.equal(username);
+        expect(result.rows[0].resource).to.equal(resource);
+        expect(result.rows[0].action).to.equal(action);
         done();
       });
     });
@@ -54,5 +55,40 @@ describe('User Resource', function() {
 
   });
 
+  describe('Find user group', function() {
+
+    it('Returns a row when user belongs to group', function(done) {
+      var username = 'bsmith';
+      var groupName = 'ADMIN';
+      userResource.findUserGroup(client, username, groupName, function(err, result) {
+         expect(err).to.be.null;
+        expect(result.rows).to.have.length(1);
+        expect(result.rows[0].username).to.equal(username);
+        expect(result.rows[0]['group_name']).to.equal(groupName);
+        done();
+      });
+    });
+
+    it('Returns no rows when user does not belong to group', function(done) {
+      var username = 'jdoe';
+      var groupName = 'ADMIN';
+      userResource.findUserGroup(client, username, groupName, function(err, result) {
+        expect(err).to.be.null;
+        expect(result.rows).to.have.length(0);
+        done();
+      });
+    });
+
+    it('Returns no rows when given invalid input', function(done) {
+      var username = 5;
+      var groupName = NaN;
+      userResource.findUserGroup(client, username, groupName, function(err, result) {
+        expect(err).to.be.null;
+        expect(result.rows).to.have.length(0);
+        done();
+      });
+    });
+
+  });
 
 });
