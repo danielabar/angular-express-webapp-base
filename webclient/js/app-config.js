@@ -22,6 +22,16 @@ myapp.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
     })
     .state('countries.add', {
       templateUrl: 'templates/countryAdd.html'
+    })
+    .state('admin', {
+      url: '/admin',
+      templateUrl: 'templates/admin.html',
+      controller: 'AdminController',
+      resolve: {
+        isAdmin: function(PermissionService) {
+          return PermissionService.checkIsAdmin();
+        }
+      }
     });
 
   $urlRouterProvider.otherwise('/');

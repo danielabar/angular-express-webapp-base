@@ -41,4 +41,34 @@ describe('Permission API', function() {
       });
   });
 
+  it('GET /ismember returns true for user belong to a group', function(done) {
+    var group = 'ADMIN';
+    var result;
+    request(app)
+      .get('/permission/ismember/' + group)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .end(function(err, res) {
+        expect(res.statusCode).to.equal(200);
+        result = JSON.parse(res.text);
+        expect(result.isMember).to.be.true;
+        done();
+      });
+  });
+
+  it('GET /ismember returns false for user not belonging to a group', function(done) {
+    var group = 'MANAGER';
+    var result;
+    request(app)
+      .get('/permission/ismember/' + group)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .end(function(err, res) {
+        expect(res.statusCode).to.equal(200);
+        result = JSON.parse(res.text);
+        expect(result.isMember).to.be.false;
+        done();
+      });
+  });
+
 });
